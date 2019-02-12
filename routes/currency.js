@@ -4,7 +4,7 @@ var router = express.Router();
 var Client = require('node-rest-client').Client;
 var client = new Client();
 
-const needsList = ["USDUSD", "USDHKD", "USDGBP", "USDAUD", "USDCAD", "USDSGD", "USDCHF", "USDJPY", "USDZAR", "USDSEK", "USDNZD", "USDTHB", "USDPHP", "USDIDR", "USDEUR", "USDKRW", "USDVND", "USDMYR", "USDCNY"]
+const needsList = ["USDUSD", "USDHKD", "USDGBP", "USDAUD", "USDCAD", "USDSGD", "USDCHF", "USDJPY", "USDZAR", "USDSEK", "USDNZD", "USDTHB", "USDPHP", "USDIDR", "USDEUR", "USDKRW", "USDVND", "USDMYR", "USDCNY", "USDTWD"]
 
 router.get('/', function (req, res, next) {
   let queries = req.query
