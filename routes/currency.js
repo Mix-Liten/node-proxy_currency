@@ -15,9 +15,10 @@ router.get('/', function (req, res, next) {
   };
 
   client.get(url, function (datas, response) {
+    let realData = JSON.parse(Buffer.from(datas, "hex").toString())
     let dataObject = {}
-    const valueList = Object.values(datas)
-    Object.keys(datas).forEach((data, index, arr) => {
+    const valueList = Object.values(realData)
+    Object.keys(realData).forEach((data, index, arr) => {
       if (needsList.find(key => data === key)) {
         dataObject[data] = valueList[index]
       }
