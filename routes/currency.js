@@ -1,32 +1,53 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express')
+let router = express.Router()
 
-var Client = require('node-rest-client').Client;
-var client = new Client();
+let Client = require('node-rest-client').Client
 
-const needsList = ["USDUSD", "USDHKD", "USDGBP", "USDAUD", "USDCAD", "USDSGD", "USDCHF", "USDJPY", "USDZAR", "USDSEK", "USDNZD", "USDTHB", "USDPHP", "USDIDR", "USDEUR", "USDKRW", "USDVND", "USDMYR", "USDCNY", "USDTWD"]
+let options = {
+  proxy: { host: 'tw.rter.info' },
+}
+let client = new Client(options)
 
-router.get('/', function (req, res, next) {
-  let queries = req.query
+const needsList = [
+  'USDUSD',
+  'USDHKD',
+  'USDGBP',
+  'USDAUD',
+  'USDCAD',
+  'USDSGD',
+  'USDCHF',
+  'USDJPY',
+  'USDZAR',
+  'USDSEK',
+  'USDNZD',
+  'USDTHB',
+  'USDPHP',
+  'USDIDR',
+  'USDEUR',
+  'USDKRW',
+  'USDVND',
+  'USDMYR',
+  'USDCNY',
+  'USDTWD',
+]
+
+router.get('/', (req, res) => {
   let url = 'https://tw.rter.info/capi.php'
-  var options = {
-    host: url,
-    method: 'GET'
-  };
 
-  client.get(url, function (datas, response) {
-    let realData = JSON.parse(Buffer.from(datas, "hex").toString())
+  client.get(url, datas => {
+    let realData = JSON.parse(Buffer.from(datas, 'hex').toString())
     let dataObject = {}
     const valueList = Object.values(realData)
-    Object.keys(realData).forEach((data, index, arr) => {
+    Object.keys(realData).forEach((data, index) => {
       if (needsList.find(key => data === key)) {
         dataObject[data] = valueList[index]
       }
     })
 
     res.json({
-      ...dataObject
+      ...dataObject,
     })
-  });
-});
-module.exports = router;
+  })
+})
+
+module.exports = router
